@@ -20,15 +20,23 @@ export class AppComponent {
   res_1='' ;
   res_2='';
 
+  show_loading=false;
 
+  reset_results(){
+    this.res_1='';
+    this.res_2='';
+  }
   switch_currency(){
     this.switcher_flag=this.from_currency;
     this.from_currency=this.to_currency;
     this.to_currency=this.switcher_flag;
     this.switcher_flag='';
+    this.reset_results();
   }
 
   convert_currency(){
+    this.show_loading=true;
+
     if(!this.amount)
       this.amount=1;
       
@@ -46,8 +54,12 @@ export class AppComponent {
         this.exchange_result=result['result'];
         this.res_1=this.amount + ' '+this.from_currency+' = '+this.exchange_result+' '+this.to_currency;
         this.res_2=this.exchange_result+ ' '+this.to_currency;
+        this.show_loading=false;
       })
-      .catch(error => console.log('error', error));
+      .catch(error => {
+        this.show_loading=false;
+        alert(error);
+      });
   }
 }
 

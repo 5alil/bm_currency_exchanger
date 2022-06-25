@@ -330,11 +330,11 @@
         <div class="row mt-3">
           <div class="col-sm-3">
             <label for="txt_num_amount" class="form-label">Amount</label>
-            <input type="number" min="1" class="form-control" id="txt_num_amount" name="txt_num_amount" [(ngModel)]="amount" required>
+            <input type="number" min="1" class="form-control" id="txt_num_amount" name="txt_num_amount" (change)="reset_results()" [(ngModel)]="amount" required>
           </div>
           <div class="col-sm-3">
             <label for="select_first_currency" class="form-label">From</label>
-            <select class="form-select" id="select_first_currency" name="select_first_currency" [(ngModel)]="from_currency" required>
+            <select class="form-select" id="select_first_currency" name="select_first_currency" (change)="reset_results()" [(ngModel)]="from_currency" required>
               <option value="AED">AED</option>
               <option value="SAR">SAR</option>
               <option value="EGP">EGP</option>
@@ -350,7 +350,7 @@
           </div>
           <div class="col-sm-3">
             <label for="select_second_currency" class="form-label">To</label>
-            <select class="form-select" id="select_second_currency" name="select_second_currency" [(ngModel)]="to_currency" required>
+            <select class="form-select" id="select_second_currency" name="select_second_currency" (change)="reset_results()" [(ngModel)]="to_currency" required>
               <option value="EGP">EGP</option>
               <option value="SAR">SAR</option>
               <option value="USD">USD</option>
@@ -364,7 +364,15 @@
     
           </div>
           <div class="col-sm-9">
-            <button type="submit" class="btn btn-primary" style="width: 100%;" (click)="convert_currency()">Convert</button>
+            <div class="row mt-3">
+              <button type="submit" class="btn btn-primary" style="width: 100%;" (click)="convert_currency()">Convert</button>
+            </div>
+            <div class="row mt-3">
+              <div class="d-flex align-items-center" *ngIf="show_loading">
+                <strong>Loading...</strong>
+                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+              </div>
+            </div>
           </div>
         </div>
       </form>
